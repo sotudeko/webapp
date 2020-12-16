@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.demo</groupId>
+  <artifactId>webapp</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+
+  <name>webapp Maven Webapp</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.cyclonedx.plugin.version>2.1.1</maven.cyclonedx.plugin.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.75</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+		<dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>2.10.9</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.9.9</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.187</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+    </dependency>
+  </dependencies>
+
+	<repositories>
+  	<repository>
+  		<id>jitpack.io</id>
+  		<url>https://jitpack.io</url>
+  	</repository>
+  </repositories>
+
+  <build>
+    <finalName>webapp</finalName>
+
+    <plugins>
+        <plugin>
+          <groupId>com.sonatype.clm</groupId>
+          <artifactId>clm-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>index</goal>
+                <goal>attach</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <version>${maven.cyclonedx.plugin.version}</version>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>makeBom</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <projectType>library</projectType>
+            <schemaVersion>1.2</schemaVersion>
+            <includeBomSerialNumber>true</includeBomSerialNumber>
+            <includeCompileScope>true</includeCompileScope>
+            <includeProvidedScope>true</includeProvidedScope>
+            <includeRuntimeScope>true</includeRuntimeScope>
+            <includeSystemScope>true</includeSystemScope>
+            <includeTestScope>false</includeTestScope>
+            <includeLicenseText>true</includeLicenseText>
+            <outputFormat>all</outputFormat>
+        </configuration>
+        </plugin>
+
+    </plugins>
+
+    <pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>com.sonatype.clm</groupId>
+            <artifactId>clm-maven-plugin</artifactId>
+            <configuration>
+              <serverUrl>http://localhost:8870</serverUrl>
+              <applicationId>webapp</applicationId>
+              <stage>build</stage>
+              <serverId>clm_server</serverId>
+            </configuration>
+          </plugin>
+        </plugins>
+      </pluginManagement>
+
+
+  </build>
+</project>
